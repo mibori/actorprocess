@@ -2,6 +2,7 @@ Name: ActorProcess
 Version: 0.1.0
 Synopsis: Actor concurrency model library
 License: BSD3
+homepage: http://sites.google.com/site/miborishante/Home/control-process
 Author: Anton Rudnev
 Maintainer: Anton Rudnev <miborishante@gmail.com>
 Build-Depends: base >= 4.0.0.0, mtl >= 1.1.0.2
