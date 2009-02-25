@@ -1,0 +1,15 @@
+Name: ActorProcess
+Version: 0.1.0
+Synopsis: Actor concurrency model library
+License: BSD3
+Author: Anton Rudnev
+Maintainer: Anton Rudnev <miborishante@gmail.com>
+Build-Depends: base >= 4.0.0.0, mtl >= 1.1.0.2
+Exposed-modules: Control.Process
+Build-Type: Simple
+Category: Concurrency
+Stability: experimental
+Description: Actor concurrency model library
+Extensions: MultiParamTypeClasses, GeneralizedNewtypeDeriving
+Cabal-Version: >= 1.2.3
+GHC-Options: -threaded
