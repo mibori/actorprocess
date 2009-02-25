@@ -14,7 +14,6 @@ import System.IO.Error(try)
 import Control.Exception(finally)
 
 
-{- Proc -- Process -}
 data Process ch = Process ThreadId (Chan ch)
 
 channel :: Process ch -> Chan ch
