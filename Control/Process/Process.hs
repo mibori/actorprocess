@@ -161,6 +161,9 @@ chanClear = do
         Nothing -> return ()
         Just _ -> chanClear
 
+isEmpty :: Proc msg Bool
+isEmpty = liftIO . isEmptyChan =<< get
+
 -- try & finally 
 tryProc :: Proc t a -> Proc t (Either IOError a)
 tryProc proc = do
