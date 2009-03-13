@@ -1,6 +1,3 @@
-{-#OPTIONS -XGeneralizedNewtypeDeriving#-}
-{-#OPTIONS -XMultiParamTypeClasses#-}
-
 module Control.Process.Process where
 
 import Control.Process.Delay
