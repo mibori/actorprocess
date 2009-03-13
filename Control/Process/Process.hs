@@ -13,13 +13,7 @@ import System.IO.Error(try)
 import Control.Exception(finally)
 
 
-data Process ch = Process ThreadId (Chan ch)
-
-channel :: Process ch -> Chan ch
-channel (Process _ ch) = ch
-
-thread :: Process ch -> ThreadId
-thread (Process th _) = th
+data Process ch = Process { thread :: ThreadId,  channel :: Chan ch }
 
 instance Show (Process a) where
     show (Process th _) = "Process " ++ show th
