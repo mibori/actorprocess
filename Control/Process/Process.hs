@@ -41,14 +41,7 @@ instance Ord (Process a) where
 
 newtype Proc ch val
     = Proc {fromProc :: StateT (Chan ch) IO val}
-        deriving Monad
-
-instance MonadIO (Proc ch) where
-    liftIO = Proc . liftIO
-
-instance MonadState (Chan ch) (Proc ch) where
-    get = Proc get
-    put = Proc . put
+        deriving (Monad, MonadIO, MonadState (Chan ch))
 
 myChannel :: Proc ch (Chan ch)
 myChannel = get
