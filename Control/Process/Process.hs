@@ -3,9 +3,11 @@ module Control.Process.Process where
 import Control.Process.Delay
 import Control.Process.Action
 
+import Control.Monad (when)
 import Control.Monad.State
 import Control.Monad.Trans
 import Control.Concurrent
+import Data.Maybe (isJust)
 import GHC.Conc
 import System.IO.Error(try)
 import Control.Exception(finally)
@@ -147,9 +149,7 @@ recvMaybe = liftIO . readChanNow =<< get
 chanClear :: Proc msg ()
 chanClear = do
     msg <- recvMaybe
-    case msg of
-        Nothing -> return ()
-        Just _ -> chanClear
+    when (isJust msg) chanClear
 
 isEmpty :: Proc msg Bool
 isEmpty = liftIO . isEmptyChan =<< get
