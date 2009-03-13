@@ -1,6 +1,7 @@
 module Control.Process.Delay(threadDelayInteger, readChanDelay, readChanNow) where
 
 import Control.Concurrent
+import Control.Exception (block)
 import Control.Monad (replicateM_)
 import Foreign.Storable
 
@@ -13,10 +14,12 @@ threadDelayInteger n = replicateM_ (fromInteger ii) (threadDelay maxBound) >> th
 
 readChanDelay :: Chan ch -> Integer -> IO (Maybe ch)
 readChanDelay ch n = do
-    v <- newEmptyMVar
-    r <- forkIO $ putMVar v . Just =<< readChan ch
-    forkIO $ threadDelayInteger n >> killThread r >> putMVar v Nothing
-    takeMVar v
+    self <- myThreadId
+    block $ do
+        killer <- forkIO $ threadDelayInteger n >> throwTo self (userError "timeout")
+        result <- fmap Just (readChan ch) `catch` (\_ -> return Nothing)
+        killThread killer
+        return result
 
 readChanNow :: Chan ch -> IO (Maybe ch)
 readChanNow ch = do
