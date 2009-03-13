@@ -7,6 +7,7 @@ import Control.Monad (when)
 import Control.Monad.State
 import Control.Monad.Trans
 import Control.Concurrent
+import Data.Function (on)
 import Data.Maybe (isJust)
 import GHC.Conc
 import System.IO.Error(try)
@@ -19,21 +20,10 @@ instance Show (Process a) where
     show (Process th _) = "Process " ++ show th
 
 instance Eq (Process a) where
-    Process th _ == Process th' _ = th == th'
-    Process th _ /= Process th' _ = th /= th'
+    (==) = (==) `on` thread
 
 instance Ord (Process a) where
-    Process th _ `compare` Process th' _ = th `compare` th'
-    Process th _ <  Process th' _ = th <  th'
-    Process th _ >= Process th' _ = th >= th'
-    Process th _ >  Process th' _ = th >  th'
-    Process th _ <= Process th' _ = th <= th'
-    Process th ch `max` Process th' ch'
-        = Process rth (if rth == th then ch else ch')
-            where rth = th `max` th'
-    Process th ch `min` Process th' ch'
-        = Process rth (if rth == th then ch else ch')
-            where rth = th `min` th'
+    compare = compare `on` thread
 
 newtype Proc ch val
     = Proc {fromProc :: StateT (Chan ch) IO val}
