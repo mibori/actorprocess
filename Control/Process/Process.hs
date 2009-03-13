@@ -138,9 +138,7 @@ recv :: Proc msg msg
 recv = liftIO . readChan =<< get
 
 recvDelay :: Integer -> Proc msg (Maybe msg)
-recvDelay n = do
-    ch <- get
-    liftIO $ readChanDelay ch n
+recvDelay n = get >>= liftIO . readChanDelay n
 
 recvMaybe :: Proc msg (Maybe msg)
 recvMaybe = liftIO . readChanNow =<< get
@@ -156,11 +154,10 @@ isEmpty = liftIO . isEmptyChan =<< get
 
 -- try & finally 
 tryProc :: Proc t a -> Proc t (Either IOError a)
-tryProc proc = do
-    ch <- get
-    liftIO $ try $ actionWith proc ch
+tryProc proc = get >>= liftIO . try . actionWith proc
 
 finallyProc :: Proc t a -> Proc t b -> Proc t a
 finallyProc first afterward = do
     ch <- get
     liftIO $ finally (actionWith first ch) $ actionWith afterward ch
+
