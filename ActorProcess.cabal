@@ -11,10 +11,14 @@ Exposed-modules:
     Control.Process.Process
     Control.Process.Action
     Control.Actor
+    Control.Actor.Act.Simple
+    Control.Actor.Act.Var
+    Control.Monad.After
 Other-modules:
     Control.Process.Delay
-    Control.Monad.After
     Control.Concurrent.Chan.Sync
+    Control.Actor.Classes
+    Control.Actor.Combinators
 Build-Type: Simple
 Category: Concurrency
 Stability: experimental
