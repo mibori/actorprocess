@@ -92,6 +92,6 @@ writeList2Chan (Chan _ ch) = liftIO . Ch.writeList2Chan ch
 -- Combinators
 --
 
-withChan :: (Monad m, MonadIO m, After m) => Chan a -> SyncT m () -> m ()
+withChan :: (Monad m, MonadIO m, After m) => Chan a -> SyncT m b -> m b
 withChan (Chan mutex chan) act = sync $ (lock mutex >> act) `after` (unlock mutex)
 
