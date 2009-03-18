@@ -6,13 +6,6 @@ module Control.Actor.Classes (
     Sender(..)
 ) where
 
-import Control.Concurrent
-import Control.Monad
-import Control.Monad.Maybe
-import Control.Monad.State
-import Data.Dynamic
-import Data.Maybe
-
 type family Process act msg
 
 type family ActMsg act
