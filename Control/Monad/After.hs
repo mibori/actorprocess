@@ -10,13 +10,9 @@ class After after where
 instance After IO where
     after = finally
 
---
--- Simple and wrong implementation
--- TODO: implement correct version (IO etc.)
---
 instance (Monad m) => After (MaybeT m) where
-    m1 `after` m2 = do
-        r1 <- m1
-        m2
-        return r1
+    m1 `after` m2 = MaybeT $ do
+        r <- runMaybeT m1
+        runMaybeT m2
+        return r 
 
