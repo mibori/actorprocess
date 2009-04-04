@@ -9,6 +9,6 @@ import Control.Actor.Classes
 sendMe msg     = self >>= flip send msg
 sendMeBack msg = self >>= flip sendBack msg
 
-(!) :: (Sender s msg) => Process s msg -> msg -> s ()
+(!) :: (Sender s msg) => Process msg -> msg -> s ()
 (!) = send
 

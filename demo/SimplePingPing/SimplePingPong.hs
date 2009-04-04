@@ -4,7 +4,7 @@ import Control.Actor.Act.Simple
 
 putLine s = liftIO $ putStrLn s
 
-data Server = Finish | Ping (Process (Act Server) Client)
+data Server = Finish | Ping (Process Client)
 data Client = Pong
 
 start = action $ do
@@ -21,7 +21,7 @@ server = do
             send cli Pong
             server
 
-client :: Integer -> Process (Act Client) Server -> Act Client ()
+client :: Integer -> Process Server -> Act Client ()
 client 0 srv = send srv Finish
 client n srv = do
     me <- self

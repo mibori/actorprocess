@@ -22,7 +22,7 @@ data VarProcess = VarProcess (Chan Dynamic)
 newtype Act a = Act { runAct :: MaybeT (StateT (Chan Dynamic) IO) a }
     deriving (Functor, Monad, MonadState (Chan Dynamic), MonadIO, MonadPlus, After)
 
-type instance Process Act msg = VarProcess
+type instance Process msg = VarProcess
 
 type instance ActMsg Act = Dynamic
 

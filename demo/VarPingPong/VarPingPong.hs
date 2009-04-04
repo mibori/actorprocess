@@ -9,7 +9,7 @@ import Data.Typeable
 putLine s = liftIO $ putStrLn s
 
 data Finish = Finish deriving Typeable
-data Ping   = Ping (Process Act Client) deriving Typeable
+data Ping   = Ping (Process Client) deriving Typeable
 data Client = Pong deriving Typeable
 
 start = action $ do
@@ -33,7 +33,7 @@ ping = do
     server
 
 
-pong :: Integer -> (Process Act msg) -> Act ()
+pong :: Integer -> Process msg -> Act ()
 pong 0 srv = send srv Finish
 pong n srv = do
     me <- self

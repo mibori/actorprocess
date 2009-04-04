@@ -14,7 +14,7 @@ data SimpleProcess msg = SimpleProcess (Chan msg)
 newtype Act msg a = Act { runAct :: StateT (Chan msg) IO a }
     deriving (Functor, Monad, MonadState (Chan msg), MonadIO)
 
-type instance Process (Act a) msg = SimpleProcess msg
+type instance Process msg = SimpleProcess msg
 
 type instance ActMsg (Act msg) = msg
 
