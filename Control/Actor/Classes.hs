@@ -10,7 +10,7 @@ type family Process act msg
 
 type family ActMsg act
 
-class Action act msg where
+class Action act where
     action :: act a -> IO a
     spawn  :: act () -> IO (Process act (ActMsg act))
     self   :: act (Process act (ActMsg act))

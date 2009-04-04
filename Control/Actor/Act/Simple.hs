@@ -18,7 +18,7 @@ type instance Process (Act a) msg = SimpleProcess msg
 
 type instance ActMsg (Act msg) = msg
 
-instance Action (Act a) msg where
+instance Action (Act a) where
     action (Act act) = do
         ch <- newChan
         evalStateT act ch

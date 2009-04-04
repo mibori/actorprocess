@@ -26,7 +26,7 @@ type instance Process Act msg = VarProcess
 
 type instance ActMsg Act = Dynamic
 
-instance Action Act msg where
+instance Action Act where
     action (Act act) = do
         ch <- newChan
         Just v <- evalStateT (runMaybeT act) ch -- Too dangerous!!
